@@ -57,10 +57,10 @@ jobs:
           install -m 0755 /tmp/trivy /usr/local/bin/trivy
       - name: Create audit summary
         working-directory: tool
-        run: pnpm cli -- "$GITHUB_WORKSPACE/target" --analyzer all --format summary --no-gate --require-analyzers | tee "$GITHUB_WORKSPACE/vulnweave-summary.txt"
+        run: pnpm cli -- "$GITHUB_WORKSPACE/target" --analyzer all --semgrep-config "$GITHUB_WORKSPACE/tool/rules/semgrep-starter.yml" --format summary --no-gate --require-analyzers | tee "$GITHUB_WORKSPACE/vulnweave-summary.txt"
       - name: Create HTML report
         working-directory: tool
-        run: pnpm cli -- report "$GITHUB_WORKSPACE/target" --no-gate --require-analyzers > "$GITHUB_WORKSPACE/vulnweave-report.html"
+        run: pnpm cli -- report "$GITHUB_WORKSPACE/target" --semgrep-config "$GITHUB_WORKSPACE/tool/rules/semgrep-starter.yml" --no-gate --require-analyzers > "$GITHUB_WORKSPACE/vulnweave-report.html"
       - name: Upload audit report
         uses: actions/upload-artifact@v4
         with:
