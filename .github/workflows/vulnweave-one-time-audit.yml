@@ -31,6 +31,9 @@ jobs:
       - name: Install VulnWeave
         working-directory: tool
         run: pnpm install --frozen-lockfile
+      - name: Build VulnWeave
+        working-directory: tool
+        run: pnpm build
       - name: Install Semgrep
         run: pipx install semgrep
       - name: Install Gitleaks
